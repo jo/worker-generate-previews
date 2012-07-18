@@ -1,0 +1,14 @@
+{
+    "name": "hoodie-worker-new",
+    "version": "0.0.1",
+    "dependencies": {
+
+    },
+    "devDependencies": {
+        "mocha": "*"
+    },
+    "scripts": {
+        "test": "mocha",
+        "start": "node index.js"
+    }
+}
