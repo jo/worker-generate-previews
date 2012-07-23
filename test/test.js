@@ -1,7 +1,7 @@
 var assert = require("assert");
-var WorkerNew = require("./../lib/WorkerNew");
+var WorkerGenerateThumbnails = require("./../lib/WorkerGenerateThumbnails");
 
-describe("WorkerNew", function() {
+describe("WorkerGenerateThumbnails", function() {
   describe("foo()", function() {
     it("should do that thing", function() {
       assert(true);

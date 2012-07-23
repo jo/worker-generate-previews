@@ -1,6 +1,16 @@
-# Hoodie Worker New
+# Hoodie Worker Generate Thumbnails
 
-This worker does a new thing!
+This worker generates thumbnails from images
+for all image types supported by imagemagick.
 
- 1. Replace all instances of `WorkerNew` with your actual worker name.
- 2. Edit the package name in `package.json`
+To start, this needs the following environment variables set:
+
+    export HOODIE_SERVER=http://example.org
+
+
+To start, run:
+
+    npm start
+
+
+(c) 2012 Johannes J. Schmidt, null2 GmbH, Berlin

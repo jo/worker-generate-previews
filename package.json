@@ -1,14 +1,22 @@
 {
-    "name": "hoodie-worker-new",
-    "version": "0.0.1",
-    "dependencies": {
-
-    },
-    "devDependencies": {
-        "mocha": "*"
-    },
-    "scripts": {
-        "test": "mocha",
-        "start": "node index.js"
-    }
+  "name": "worker-generate-thumbnails",
+  "description": "Hoodie worker which generates image thumbnails.",
+  "author": {
+    "name": "Johannes J. Schmidt",
+    "url": "http://github.com/jo",
+    "email": "schmidt@netzmerk.com"
+  },
+  "version": "0.0.1",
+  "dependencies": {
+    "CouchDBChanges": ">=0.0.3",
+    "imagemagick": ">=0.1.2",
+    "mime": "1.2.7"
+  },
+  "devDependencies": {
+    "mocha": "*"
+  },
+  "scripts": {
+    "test": "mocha",
+    "start": "node index.js"
+  }
 }
