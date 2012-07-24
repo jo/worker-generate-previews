@@ -19,6 +19,8 @@ A Worker Configuration File might look like this:
 
 You can update the config live so that all future processings will take the new configuration.
 
+_size_ is a expression for imagemagick, so you can do eg. 120x120!, 120x and so on.
+
 
 ## Status Object
 
@@ -44,6 +46,11 @@ processing the same document.
 
 
 ## Running the Worker
+
+Make shure you did
+
+    git submodule init
+
 
 To start, this needs either the following environment variables set:
 
