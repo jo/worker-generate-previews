@@ -4,11 +4,6 @@ This worker generates thumbnails from images
 for all image types supported by imagemagick.
 
 
-To start, this needs the following environment variables set:
-
-    export HOODIE_SERVER=http://example.org
-
-
 ## Configuration
 
 Configuration is done in a worker configuration document inside the target database.
@@ -17,15 +12,15 @@ The worker looks at all databases and only process if there exists such a config
 A Worker Configuration File might look like this:
 
     {
-      "\_id": "worker-config/generate-thumbnails",
-      "\_rev": "9-a653b27246b01cf9204fa9f5dee7cc64",
+      "_id": "worker-config/generate-thumbnails",
+      "_rev": "9-a653b27246b01cf9204fa9f5dee7cc64",
       "size": "135x135"
     }
 
 You can update the config live so that all future processings will take the new configuration.
 
 
-## Status
+## Status Object
 
 The worker updates a status object inside the document.
 This makes it supereasy to monitor worker status as well as
@@ -44,22 +39,18 @@ The status object of the worker looks like this:
 
 The status field can be _triggered_, _completed_ or _error_.
 
+
 ## Running the Worker
 
-To start, run:
+To start, this needs either the following environment variables set:
+
+    export HOODIE_SERVER=http://example.org
+    npm start
+
+
+or pass them to the commandline:
 
     HOODIE_SERVER=http://example.org npm start
-
-
-    WorkerGenerateThumbnails running at http://example.org/mydb
-    WorkerGenerateThumbnails running at http://example.org/otherdb
-    [mydb] worker-config/generate-thumbnails: create config
-    [mydb] animage: triggered
-    [mydb] animage: ack
-    [mydb] animage: convert image.jpg
-    [mydb] animage: done image.jpg
-    [mydb] animage: completed
-
 
 
 ## License & Copyright
