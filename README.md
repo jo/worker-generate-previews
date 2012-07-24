@@ -39,6 +39,9 @@ The status object of the worker looks like this:
 
 The status field can be _triggered_, _completed_ or _error_.
 
+The worker status is scoped by the worker name in order to have many workers
+processing the same document.
+
 
 ## Running the Worker
 
