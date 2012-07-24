@@ -1,4 +1,4 @@
-# Hoodie Worker Generate Thumbnails
+# Worker Generate Thumbnails
 
 This worker generates thumbnails from images
 for all image types supported by imagemagick.
