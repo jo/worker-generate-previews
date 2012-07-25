@@ -5,54 +5,26 @@ var WorkerAttachments = require("worker-attachments/lib/WorkerAttachments");
 
 // example mimimal worker that checks every jpg or png image
 var processor = (function() {
-  var formats = ['jpg', 'png'],
-      spawn = require('child_process').spawn,
-      _ = require("underscore");
+  var formats = ['jpg', 'png'];
 
   return {
     check: function(doc, name) {
       return formats.indexOf(name.toLowerCase().replace(/^.*\.([^\.]+)$/, '$1')) > -1;
     },
     process: function(doc, name, next) {
-      var args = ['-', '-thumbnail', this.config.size, '-'],
-          convert = spawn('convert', args);
-
-      this._log(doc, 'convert ' + name);
-
-      // print errors
-      convert.stderr.pipe(process.stderr);
-
-      convert.stdout.on('data', _.bind(function(data) {
-        doc._attachments[this.config.folder + '/' + name] = {
-          content_type: 'image/jpeg',
-          data: data.toString('base64')
-        };
-        next();
-      }, this));
-
-      convert.on('exit', _.bind(function(code) {
-        if (code !== 0) {
-          console.warn("error in `convert`")
-          this._log(doc, 'error ' + name);
-          return;
-        }
-
-        this._log(doc, 'done ' + name);
-      }, this));
-
-      // request image and send it to imagemagick
-      request(this._urlFor(doc, name)).pipe(convert.stdin);
+      this._log(doc, 'found image: ' + name);
+      // do stuff...
+      next();
     }
   };
 })();
-  
 var config = {
   server: process.env.HOODIE_SERVER || "http://127.0.0.1:5984",
-  name: 'generate-thumbnails',
-  config_id: 'worker-config/generate-thumbnails',
+  name: 'generate-stills',
+  config_id: 'worker-config/generate-stills',
   processor: processor,
   defaults: {
-    folder: 'thumbnails',
+    folder: 'stills',
     size: '200x300'
   }
 };

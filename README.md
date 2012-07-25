@@ -1,7 +1,7 @@
-# Worker Generate Thumbnails
+# Worker Generate Stills
 
-This worker generates thumbnails from images
-for all image types supported by imagemagick.
+This worker generates stills from videos
+for all video types supported by imagemagick.
 
 
 ## Configuration
@@ -33,7 +33,7 @@ with the revpos property of the status object.
 The status object of the worker looks like this:
 
     "worker_status": {
-      "generate-thumbnails": {
+      "generate-stills": {
         "status": "completed",
         "revpos": 160
       }

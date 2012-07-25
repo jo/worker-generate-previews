@@ -1,6 +1,6 @@
 {
-  "name": "worker-generate-thumbnails",
-  "description": "Hoodie worker which generates image thumbnails.",
+  "name": "worker-generate-stills",
+  "description": "Hoodie worker which generates stills from videos.",
   "author": {
     "name": "Johannes J. Schmidt",
     "url": "http://github.com/jo",
