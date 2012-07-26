@@ -6,53 +6,75 @@ var WorkerAttachments = require("worker-attachments/lib/WorkerAttachments");
 // example mimimal worker that checks every jpg or png image
 var processor = (function() {
   var formats = ['mp4'],
-      ffmpeg = require("fluent-ffmpeg"),
+      path = require('path'),
+      fs = require('fs'),
+      util = require('util'),
+      spawn = require('child_process').spawn,
       _ = require("underscore");
+
+
+  // borrowed from fluent-ffmpeg
+  // https://github.com/schaermu/node-fluent-ffmpeg/blob/master/lib/extensions.js#L28
+  function ffmpegTimemarkToSeconds(timemark) {
+    var parts = timemark.split(':');
+    var secs = 0;
+
+    // add hours
+    secs += parseInt(parts[0], 10) * 3600;
+    // add minutes
+    secs += parseInt(parts[1], 10) * 60;
+
+    // split sec/msec part
+    var secParts = parts[2].split('.');
+
+    // add seconds
+    secs += parseInt(secParts[0], 10);
+
+    return secs;
+  };
 
   return {
     check: function(doc, name) {
       return formats.indexOf(name.toLowerCase().replace(/^.*\.([^\.]+)$/, '$1')) > -1;
     },
     process: function(doc, name, next) {
-      var tempdir = '/tmp';
-      var options = {
-        count: 9,
-        filename: doc._id + '-screenshot-%i',
-        timemarks: [ '10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%' ]
-      };
+      var tempdir = '/tmp',
+          // note that util.format does not support something like %3d
+          thumbname = tempdir + '/' + name.replace(/\..*$/, '') + '-%d.jpg',
+          args = ['-i', this._urlFor(doc, name), '-r', '1/10', '-s', this.config.size, thumbname],
+          ffmpeg = spawn('ffmpeg', args);
 
-      // FIXME
-      // guess I need a prox stream to pipe the response to
 
-      // request image and send it to ffmpeg
-      request(this._urlFor(doc, name), _.bind(function(error, response, data) {
-        new ffmpeg({ source: data })
-          .withSize(this.config.size)
-          .takeScreenshots(options, tempdir, function(error, thumbnames) {
-            if (error) {
-              console.warn('Error creating video thumbnail:');
-              console.warn(error);
-              return next(error);
-            }
+      // http://debuggable.com/posts/FFMPEG_multiple_thumbnails:4aded79c-6744-4bc1-b30e-59bccbdd56cb
 
-            thumbnames.forEach(function(thumbname, i) {
-              var filename = tempdir + '/' + thumbname;
+      this._log(doc, 'ffmpeg ' + name);
 
-              try {
-                doc._attachments['thumbs/' + i + '.jpg'] = {
-                  content_type: 'image/jpeg',
-                  data: fs.readFileSync(filename).toString('base64')
-                };
-                fs.unlinkSync(filename);
-              } catch(error) {
-                console.warn('Error creating video thumbnail:');
-                console.warn(error);
-                delete doc._attachments['thumbs/' + i + '.jpg'];
-              }
-            });
+      // print errors
+      // ffmpeg.stderr.pipe(process.stderr);
 
-            next();
-          });
+      ffmpeg.on('exit', _.bind(function(code) {
+        var i = 1,
+            filename;
+
+        if (code !== 0) {
+          console.warn("error in `ffmpeg`")
+          this._log(doc, 'error ' + name);
+        } else {
+          while (path.existsSync(util.format(thumbname, i))) {
+            filename = util.format(thumbname, i);
+
+            doc._attachments[this.config.folder + '/' + path.basename(filename)] = {
+              content_type: 'image/jpeg',
+              data: fs.readFileSync(filename).toString('base64')
+            };
+            fs.unlinkSync(filename);
+            i++;
+          }
+
+          this._log(doc, 'done ' + name);
+        }
+        
+        next(code);
       }, this));
     }
   };
