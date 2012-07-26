@@ -40,8 +40,8 @@ var processor = (function() {
     process: function(doc, name, next) {
       var tempdir = '/tmp',
           // note that util.format does not support something like %3d
-          thumbname = tempdir + '/' + name.replace(/\..*$/, '') + '-%d.jpg',
-          args = ['-i', this._urlFor(doc, name), '-r', '1/10', '-s', this.config.size, thumbname],
+          stillname = tempdir + '/' + name.replace(/\..*$/, '') + '-%d.jpg',
+          args = ['-i', this._urlFor(doc, name), '-r', '1/10', '-s', this.config.size, stillname],
           ffmpeg = spawn('ffmpeg', args);
 
 
@@ -60,8 +60,8 @@ var processor = (function() {
           console.warn("error in `ffmpeg`")
           this._log(doc, 'error ' + name);
         } else {
-          while (path.existsSync(util.format(thumbname, i))) {
-            filename = util.format(thumbname, i);
+          while (path.existsSync(util.format(stillname, i))) {
+            filename = util.format(stillname, i);
 
             doc._attachments[this.config.folder + '/' + path.basename(filename)] = {
               content_type: 'image/jpeg',
@@ -86,7 +86,7 @@ var config = {
   processor: processor,
   defaults: {
     folder: 'stills',
-    size: '200x300'
+    size: '1024x800'
   }
 };
 
