@@ -1,7 +1,6 @@
-# Worker Generate Stills
+# Worker Generate Previews
 
-This worker generates stills from videos
-for all video types supported by imagemagick.
+This worker generates previews from pdf files.
 
 
 ## Configuration
@@ -50,6 +49,7 @@ processing the same document.
 Make shure you did
 
     git submodule init
+    git submodule update
 
 
 To start, this needs either the following environment variables set:
