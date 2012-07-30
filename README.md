@@ -25,9 +25,6 @@ A Worker Configuration File might look like this:
       "_id": "worker-config/generate-thumbnails",
       "_rev": "9-a653b27246b01cf9204fa9f5dee7cc64",
       "versions": {
-        "thumbnail": {
-          "size": "135x135"
-        },
         "medium": {
           "size": "800x600"
         }
