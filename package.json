@@ -6,10 +6,10 @@
     "url": "http://github.com/jo",
     "email": "schmidt@netzmerk.com"
   },
-  "version": "0.0.1",
+  "version": "0.1.0",
   "dependencies": {
     "request": "*",
-    "worker-attachments": ">=0.1.0"
+    "worker-attachments": ">=0.2.1"
   },
   "scripts": {
     "start": "node index.js"
