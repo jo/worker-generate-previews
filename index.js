@@ -1,17 +1,14 @@
-// Worker Attachments
-var request = require("request");
+// Worker Generate Previews
 
+var request = require("request");
 var WorkerAttachments = require("worker-attachments/lib/WorkerAttachments");
 
-// example mimimal worker that checks every jpg or png image
 var processor = (function() {
   var formats = ['pdf'],
       path = require('path'),
       fs = require('fs'),
       util = require('util'),
-      spawn = require('child_process').spawn,
-      _ = require("underscore");
-
+      spawn = require('child_process').spawn;
 
   return {
     check: function(doc, name) {
@@ -27,7 +24,7 @@ var processor = (function() {
 
       this._log(doc, 'convert ' + name);
 
-      convert.on('exit', _.bind(function(code) {
+      convert.on('exit', (function(code) {
         var i = 0,
             filename;
 
@@ -50,7 +47,7 @@ var processor = (function() {
         }
         
         next(code);
-      }, this));
+      }).bind(this));
     }
   };
 })();
