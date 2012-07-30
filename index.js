@@ -71,7 +71,11 @@ var config = {
   processor: processor,
   defaults: {
     folder: 'previews',
-    size: '1024x800'
+    versions: {
+      previews: {
+        size: '1024x800'
+      }
+    }
   }
 };
 

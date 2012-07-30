@@ -33,6 +33,8 @@ A Worker Configuration File might look like this:
 
 You can update the config live so that all future processings will take the new configuration.
 
+Note that attachment names which starts with a version name, followed by a '/' are ignored.
+
 _size_ is a expression for imagemagick, so you can do eg. 120x120!, 120x and so on.
 
 
