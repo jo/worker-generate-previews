@@ -1,3 +1,0 @@
-[submodule "node_modules/worker-attachments"]
-	path = node_modules/worker-attachments
-  url = git://github.com/null2/worker-attachments.git
