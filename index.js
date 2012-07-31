@@ -14,7 +14,7 @@ var processor = (function() {
     var tempdir = '/tmp',
         // note that util.format does not support something like %3d
         previewname = tempdir + '/' + name.replace(/\..*$/, '') + '-%d.jpg',
-        args = [url, '-scale', options.size, previewname],
+        args = ['-', '-scale', options.size, previewname],
         convert = spawn('convert', args);
 
     convert.on('exit', (function(code) {
@@ -38,6 +38,9 @@ var processor = (function() {
 
       cb(code);
     }).bind(this));
+
+    // request image and send it to imagemagick
+    request(url).pipe(convert.stdin);
   }
 
   return {
