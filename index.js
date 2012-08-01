@@ -12,21 +12,21 @@ var processor = (function() {
 
   function process(doc, name, url, version, options, cb) {
     var tempdir = '/tmp',
-        // note that util.format does not support something like %3d
-        previewname = tempdir + '/' + doc._id + '-' + name.replace(/\..*$/, '') + '-%d.jpg',
-        args = ['-', '-scale', options.size, previewname],
+        prefix = tempdir + '/' + doc._id + '-' + name.replace(/\..*$/, '') + '-',
+        suffix = '.jpg',
+        args = ['-', '-scale', options.size, prefix + '%04d' + suffix],
         convert = spawn('convert', args);
 
     convert.on('exit', (function(code) {
-      var i = 0,
+      var i = 0,  // convert starts with 0
           filename;
 
       if (code !== 0) {
         return cb(code);
       }
 
-      while (path.existsSync(util.format(previewname, i))) {
-        filename = util.format(previewname, i);
+      while (path.existsSync(prefix + String('0000' + i).slice(-4) + suffix)) {
+        filename = prefix + String('0000' + i).slice(-4) + suffix;
 
         doc._attachments[version + '/' + path.basename(filename).replace(doc._id + '-', '')] = {
           content_type: 'image/jpeg',
