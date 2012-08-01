@@ -13,7 +13,7 @@ var processor = (function() {
   function process(doc, name, url, version, options, cb) {
     var tempdir = '/tmp',
         // note that util.format does not support something like %3d
-        previewname = tempdir + '/' + name.replace(/\..*$/, '') + '-%d.jpg',
+        previewname = tempdir + '/' + doc._id + '-' + name.replace(/\..*$/, '') + '-%d.jpg',
         args = ['-', '-scale', options.size, previewname],
         convert = spawn('convert', args);
 
