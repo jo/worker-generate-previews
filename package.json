@@ -10,7 +10,7 @@
   "dependencies": {
     "request": "*",
     "underscore": "*",
-    "couchdb-worker": "=0.4.2"
+    "couchdb-worker": ">=0.4.3"
   },
   "scripts": {
     "start": "node index.js"
