@@ -14,10 +14,13 @@ function generateStills(doc, name, version, options, done) {
         + '/' + encodeURIComponent(this.db)
         + '/' + encodeURIComponent(doc._id)
         + '/' + encodeURIComponent(name),
-      prefix = '/tmp/' + doc._id + '-' + version  + '-' + name.replace(/\..*$/, '') + '-',
+      basename = name.replace(/\..*$/, ''),
+      prefix = '/tmp/' + doc._id + '-' + version  + '-' + basename.replace('/', '-') + '-',
       suffix = '.jpg',
       args = ['-', '-scale', options.size, prefix + '%04d' + suffix],
       convert = spawn('convert', args);
+
+  convert.stderr.pipe(process.stderr);
 
   convert.on('exit', (function(code) {
     var i = 0,  // convert starts with 0
@@ -31,7 +34,7 @@ function generateStills(doc, name, version, options, done) {
     while (path.existsSync(prefix + String('0000' + i).slice(-4) + suffix)) {
       filename = prefix + String('0000' + i).slice(-4) + suffix;
 
-      attachments[version + '/' + path.basename(filename).replace(doc._id + '-' + version  + '-' , '')] = {
+      attachments[version + '/' + basename + String('0000' + i).slice(-4) + suffix] = {
         content_type: 'image/jpeg',
         data: fs.readFileSync(filename).toString('base64')
       };
