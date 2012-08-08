@@ -75,15 +75,9 @@ processing the same document.
 
 ## Running the Worker
 
-To start, this needs either the following environment variables set:
+To start, this needs the following environment variables set:
 
-    export HOODIE_SERVER=http://example.org
-    npm start
-
-
-or pass them to the commandline:
-
-    HOODIE_SERVER=http://example.org npm start
+    COUCH_SERVER=http://example.org COUCH_DB=mydb npm start
 
 
 ## License & Copyright
