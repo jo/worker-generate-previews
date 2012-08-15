@@ -5,7 +5,8 @@ This worker generates previews from pdf files.
 
 ## Prerequisites
 
-This worker depends on `imagemagick`. Make shure the `convert` program is in the path.
+This worker depends on `imagemagick` and `ghostscript`.
+Make shure the `convert` program is in the path.
 
 ## Installation
 
