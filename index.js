@@ -17,7 +17,7 @@ function generateStills(doc, name, version, options, done) {
       basename = name.replace(/\..*$/, ''),
       prefix = '/tmp/' + doc._id + '-' + version  + '-' + basename.replace('/', '-') + '-',
       suffix = '.jpg',
-      args = ['-', '-scale', options.size, prefix + '%04d' + suffix],
+      args = ['-', '-scale', options.size, '-colorspace', 'sRGB', prefix + '%04d' + suffix],
       convert = spawn('convert', args);
 
   convert.stderr.pipe(process.stderr);
