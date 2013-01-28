@@ -18,7 +18,7 @@ Make shure the `convert` program is in the path.
 ## Configuration
 
 Configuration is done in a worker configuration document inside the target database.
-The worker looks at all databases and only process if there exists such a configuration file.
+The worker only process if there exists such a configuration file.
 
 A Worker Configuration File might look like this:
 
