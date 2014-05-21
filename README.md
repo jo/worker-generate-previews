@@ -2,6 +2,8 @@
 
 This worker generates previews from pdf files.
 
+# Depricated
+This is depricated in favor if [couchmagick](https://github.com/jo/couchmagick)!
 
 ## Prerequisites
 
