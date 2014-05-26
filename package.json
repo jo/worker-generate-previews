@@ -1,11 +1,11 @@
 {
   "name": "worker-generate-previews",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "CouchDB worker which generates preview images from pdfs.",
   "keywords": ["CouchDB", "attachments", "couchdb-worker", "worker", "convert", "imagemagick", "image", "preview", "pdf"],
-  "homepage": "https://github.com/null2/worker-generate-previews",
+  "homepage": "https://github.com/jo/worker-generate-previews",
   "bugs": {
-    "url" : "http://github.com/null2/worker-generate-previews/issues",
+    "url" : "http://github.com/jo/worker-generate-previews/issues",
     "email" : "schmidt@netzmerk.com"
   },
   "author": {
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/null2/worker-generate-previews"
+    "url": "https://github.com/jo/worker-generate-previews"
   },
   "dependencies": {
     "request": "*",
